@@ -24,6 +24,25 @@ python -m tools.salvage firmware.bin -n 40
 
 - OpenWrt x86-64 bzImage 6.12.94 (old) and 6.12.112 (new) — run
   `make test` in this folder.
+- A deterministic 2 MB synthetic dump with repeated keys (see
+  `tests/test_salvage.py::SalvageScanTest::test_realistic_large_binary`).
+  The tool returned rc=0, printed "total candidate strings" and
+  "distinct candidate strings", and surfaced all five repeated keys.
+
+## Limitations
+
+- Strings are extracted by radare2's `izzj`; min-length-4 and printable-only,
+  so short or non-ASCII keys are missed.
+- Output is the top-25 candidates; strings outside that window are not
+  printed (pipe to `-n 100` if you need more).
+- A dump with no printable strings of length >= 4 shows "0" and no candidates.
+
+## Roadmap / Help wanted
+
+- v0.2: min-length parameter, entropy-density filter for cryptographic keys,
+  and optional `--json` summary.
+- v0.3: scanning a directory or tar archive of dumps in one pass.
+- Help wanted: a real 100 MB+ binary file for the test fixtures.
 
 ## Safety
 

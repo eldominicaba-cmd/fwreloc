@@ -16,3 +16,5 @@ fwreloc_tmp.*
 
 # tooling
 .fwreloc-pro.lic
+*.png
+*.svg

@@ -35,8 +35,22 @@ python -m tools.cutcard design.svg
 ## Tested on
 
 A 200x200 SVG fixture with four rectangles (black, dark grey, red, green) —
+
 see `tests/test_cutcard.py`. *820.0* is the arithmetic total of those four
 perimeters.
+
+## Limitations
+
+- Only rectangular and path elements are understood; curves are approximated,
+  so hairline detail and multi-curve shapes need a cleanup pass.
+- It reports length, not kerf, material cost, or scale units.
+- It is a planning aid; it does not push a machine.
+
+## Roadmap / Help wanted
+
+- Finer-grid image tracing, better curve handling, round-trips to `.svg`.
+- Multi-layer / kerf estimation for layered materials.
+- Help wanted: a real 500x500 px PNG logo as a tracing fixture.
 
 ## Safety
 

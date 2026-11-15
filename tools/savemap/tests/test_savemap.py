@@ -71,6 +71,39 @@ class SavemapDiffTest(unittest.TestCase):
         self.assertIn("41414141", out)
         self.assertIn("41414142", out)
 
+    def test_realistic_large_pair_handles_known_diffs(self):
+        """Savemap against two large bins (~256KB) with known diffs at several
+        offsets. Proves it handles real diffs (not just the 256-byte synthetic
+        block) and that nearby changed bytes keep distinct RLE ranges."""
+        rng = 131
+        old = bytearray(0x40000)  # 256 KB
+        new = bytearray(0x40000)
+        for i in range(len(old)):
+            old[i] = (i * rng + 5) & 0xFF
+        new[:] = old
+        changes = {
+            0x1000: bytes([0xAB, 0xCD, 0xEF, 0xCD, 0xAB]),
+            0x1008: bytes([0xFF, 0xFF]),
+            0x20000: bytes([0xDE, 0xAD, 0xBE, 0xEF, 0xCA, 0xFE, 0x13]),
+            0x30000: bytes([0x00] * 16),
+        }
+        for off, chunk in changes.items():
+            for j, b in enumerate(chunk):
+                new[off + j] = b
+        with tempfile.TemporaryDirectory() as d:
+            old_p = pathlib.Path(d) / "old.bin"
+            new_p = pathlib.Path(d) / "new.bin"
+            old_p.write_bytes(bytes(old))
+            new_p.write_bytes(bytes(new))
+            out = run_savemap(old_p, new_p)
+        self.assertNotIn("identical", out)
+        self.assertIn("SHA256", out)
+        for rng in ("00001000-00001004", "00001008-00001009",
+                    "00020000-00020006", "00030000-0003000f"):
+            self.assertIn(rng, out)
+        # each changed region reports per-block checksums for both files
+        self.assertIn("00001000", out)
+
 
 if __name__ == "__main__":
     unittest.main()

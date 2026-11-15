@@ -35,6 +35,23 @@ kernel (OpenWrt `fw_25.12.5.bin` → `fw_25.12.6.bin`,
 `bzImage` 6.12.94 → 6.12.112): the pair yields 126 → 132 native functions
 (129 added, 123 removed, 1 changed; fcn.00573240, 8 → 241 bytes).
 
+## Limitations
+
+- Relies on radare2 `aaa` (auto-analysis); functions radare2 cannot resolve
+  are simply not reported, and analysis quality varies by binary.
+- A "changed" function is detected by size/offset delta, not by comparing
+  disassembly bytes — it may not actually differ in code.
+- v0.1 compares only native functions (no data, strings, or symbols).
+- `aaa` on a multi-megabyte kernel takes minutes; use `--jobs` to speed it up.
+
+## Roadmap / Help wanted
+
+- v0.2: retro-handheld raw `.bin` support and data/BSS diffs.
+- v0.3: `--jobs` parallelism, `--json` output for CI, and vendor-tagged names.
+- CI job that runs the real OpenWrt x86-64 kernel pair on every push.
+- Contributions welcome: reporters for other architectures (ARM, RISC-V) or
+  firmwares.
+
 ## What it does NOT do
 
 - Does not disassemble, patch, or patch code — it reports an inventory delta.
