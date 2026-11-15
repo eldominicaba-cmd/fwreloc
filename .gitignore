@@ -1,9 +1,18 @@
+# Python
 __pycache__/
 *.py[cod]
-*.c
 *.egg-info/
 build/
 dist/
-venv/
 .venv/
-firmware/
+venv/
+*.egg
+
+# fwreloc runtime
+*.bin
+*.img
+fwreloc_tmp.*
+*.log
+
+# tooling
+.fwreloc-pro.lic

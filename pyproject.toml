@@ -3,16 +3,25 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "fwreloc"
+name = "fwreloc-monorepo"
 version = "0.1.0"
-description = "Firmware patch reversion / compatibility tooling"
+description = "Firmware reverse-engineering toolbox — multiple small, well-tested CLI tools."
 requires-python = ">=3.10"
 license = {text = "MIT"}
-dependencies = ["r2pipe>=0.16.0"]
-scripts = {fwreloc = "fwreloc.cli:main"}
-
-[project.optional-dependencies]
-dev = ["r2pipe>=0.16.0"]
+dependencies = []
 
 [tool.setuptools]
-packages = ["fwreloc"]
+packages = [
+    "shared",
+    "tools",
+    "tools.fwreloc",
+    "tools.salvage",
+    "tools.savemap",
+    "tools.cutcard",
+]
+
+[project.scripts]
+fwreloc = "tools.fwreloc.cli:main"
+salvage = "tools.salvage.main:main"
+savemap = "tools.savemap.main:main"
+cutcard = "tools.cutcard.main:main"
