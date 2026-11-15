@@ -1,7 +1,9 @@
 __pycache__/
 *.py[cod]
+*.c
 *.egg-info/
 build/
 dist/
 venv/
 .venv/
+firmware/
