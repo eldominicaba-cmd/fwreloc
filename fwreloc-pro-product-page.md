@@ -37,8 +37,8 @@ paste it into a GitHub issue, a changelog, or an email to your team.
 
 ## Installing
 1. Purchase at the link below.
-2. Place the supplied license file at `~/.fwreloc-pro.lic` (or run the
-   installer, which does it for you).
+2. Place the supplied license file at `~/.fwreloc-pro.lic`.
+
 3. `pip install -e .` from the released zip.
 4. Run `fwreloc pro report OLD NEW --out report.md`.
 
