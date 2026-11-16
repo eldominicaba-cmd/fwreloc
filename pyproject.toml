@@ -14,6 +14,7 @@ dependencies = []
 packages = [
     "shared",
     "tools",
+    "tools.entropy",
     "tools.fwreloc",
     "tools.salvage",
     "tools.savemap",
@@ -25,3 +26,4 @@ fwreloc = "tools.fwreloc.cli:main"
 salvage = "tools.salvage.main:main"
 savemap = "tools.savemap.main:main"
 cutcard = "tools.cutcard.main:main"
+entropy = "tools.entropy.main:main"

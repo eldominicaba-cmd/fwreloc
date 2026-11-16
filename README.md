@@ -9,9 +9,10 @@ binary analysis, plus a craft-niche cut-card planner.
 | --- | --- |
 | `fwreloc` | diffs two firmware dumps of the same device; prints the native-code function delta (added / removed / changed) via radare2 |
 | `salvage` | indexes printable strings and candidate keys in a firmware/binary dump (radare2 `izzj`), sorted by frequency |
-|| `savemap` | diffs two binary dumps block-by-block and reports changed regions with per-block checksums |
-|| `strdiff` | diffs the printable strings between two binary dumps (added / removed / shared) |
-|| `cutcard` | parses a (mostly rectangular) SVG and prints a per-color cut-card layer plan with an estimated cut length |
+| `savemap` | diffs two binary dumps block-by-block and reports changed regions with per-block checksums |
+| `strdiff` | diffs the printable strings between two binary dumps (added / removed / shared) |
+| `cutcard` | parses a (mostly rectangular) SVG and prints a per-color cut-card layer plan with an estimated cut length |
+| `entropy` | Shannon entropy (bits/byte) of a binary dump; flags content likely packed, compressed, or encrypted |
 
 All tools are CLI-first and run with `python -m tools.<tool>` or the console
 script after `pip install -e .`. They are part of a single monorepo so
